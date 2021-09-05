@@ -1,0 +1,39 @@
+@CHARSET "UTF-8";
+	#wrapper{
+	width:900px;
+	margin:auto;
+	padding-top:100px;
+	/*border:1px solid red;*/
+	}
+    #title{
+	width:400px;
+	height:45px;
+	margin-top:20px;
+	margin-left:30px;
+	margin-bottom:3px;
+	/*border:1px solid yellow;*/
+	}
+	#myTab li{
+	width:90px;
+	height:45px;
+	float:left;
+	border-top-right-radius:10px;
+	border-left:2px solid #1E90FF;
+	border-right:2px solid #1E90FF;
+	border:2px solid #1E90FF;
+	}
+	#content1{
+	width:800px;
+	height:500px;
+	border:2px solid blue;
+	}
+	#content2{
+	width:800px;
+	height:500px;
+	border:2px solid blue;
+	}
+	#content3{
+	width:800px;
+	height:500px;
+	border:2px solid blue;	
+	}

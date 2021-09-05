@@ -1,0 +1,320 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>记账本</title>
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="assets/css/title.css">
+	<script src="assets/js/vue-2.6.12.js"></script>
+	<style>
+	#content_tx{
+	/*border:1px solid red;*/
+	width:400px;
+	height:200px;
+	margin-left: 200px;
+	margin-top: 100px;
+	padding-top:60px;
+		
+	}
+	.tx{
+	/*border:1px solid black;*/
+	width:300px;
+	height:40px;
+	margin-bottom:10px;
+	margin-left:30px;
+	padding:2px;
+	}
+	.tx a{
+		color:#1E90FF;
+	}
+	.user_info{
+	width:200px;
+	height:15px;
+	border-radius:10px;
+	margin-left:3px;
+	border:1px solid dodgerblue;
+	padding:10px;
+	}
+	#login-btn{
+	width:80px;
+	border-radius:5px;
+	background-color: #1E90FF;
+	color:white;
+	margin-left:150px;
+	margin-bottom: 10px;
+	}
+	.content_item{
+	/*border:1px solid red;*/
+	width:500px;
+	height:300px;
+	margin-left:150px;
+	margin-top:60px;
+	padding-top:60px;
+		
+	}	
+	.item{
+	/*border:1px solid black;*/
+	width:300px;
+	height:40px;
+	margin-left: 70px;
+	margin-bottom: 10px;
+	padding:2px 2px;
+	}
+	.item a{
+	color:#0000FF;
+	}
+	.info{
+	border:1px solid blue;
+	width:200px;
+	height:15px;
+	height:25px;
+	border-radius:10px;
+	margin-left:4px;
+	}
+	#add-btn{
+	width:70px;
+	height:25px;
+	margin-left:190px;
+	border-radius:8px;
+	letter-spacing: 3px;
+	background-color:#1E90FF;
+	color:white;
+	}
+    #tables{
+    border:1px solid blue;
+    width:900px;
+    }
+    #table1{
+    margin-top:30px;
+    margin-left:30px;
+    }
+    #table1 td{
+    background-color:#1E90FF;
+    }
+    #table2{
+    margin-left:30px;
+    }
+    #table2 td{
+    width:100px;
+    height:20px;
+    }
+    #table2 input{
+    width:99px;
+    height:35px;
+    }
+	</style>
+	<script>
+$(document).ready(function(){ 
+    $("#login-btn").click(function(e){
+      e.preventDefault();
+      $.ajax({
+			  url:"NotebookServlet1",
+			  type:'get',
+			  async:'false',
+			  data:$('#form1').serialize(),
+			  dataType:"json",
+			  success:function(data){
+						$("#myTab li:eq(1) a").tab("show");
+			      },
+					error:function(){
+						alert('登录失败');
+			      },
+			   });
+    });
+$("#add-btn").click(function(e){
+      e.preventDefault();
+      $.ajax({
+			  url:"NotebookServlet2",
+			  type:'get',
+			  async:'false',
+			  data:$('#form2').serialize(),
+			  dataType:"json",
+			  success:function(data){
+						$("#myTab li:eq(2) a").tab("show");
+			      },
+			   error:function(){
+						alert('记账失败');
+			      },
+			   });
+    });
+})
+$(document).ready(function(){
+$("#myTab a").click(function(e){
+e.preventDefault();
+$(this).tab("show");
+})
+})
+</script>
+</head>
+<body>
+<div id="wrapper">
+	<div id="title">
+<ul id="myTab" class="nav nav-tabs">
+	<li class="active">
+		<a href="#login">首页</a></li>
+	<li><a href="#add">记账</a></li>
+	<li><a href="#liebiao">列表</a></li>
+</ul>
+</div><!-- title -->
+<div id="myTabContent" class="tab-content">
+	<div class="tab-pane fade in active" id="login">
+	
+	<div id="content1">
+	<form id="form1">
+	<div id="content_tx">
+  	<div class="tx">
+    <a>用户名</ a>
+    <input class="user_info" id="username" type="text" name="user_name" />
+    </div>
+    <div class="tx">
+    <a>密&nbsp;&nbsp;&nbsp;&nbsp;码</ a>
+    <input class="user_info" id="userpsw" type="password" name="user_psw" />
+    </div>
+    <button id="login-btn" type="submit">登录</button>
+    </div><!-- content-tx -->
+    </form>
+</div><!-- content1 -->
+		
+	</div><!--login-->
+	
+	
+	<div class="tab-pane fade" id="add">
+	
+	<div id="content2">
+		 <form id="form2">
+  	<div class="content_item">
+  		<div class="item">
+  			<a>支出项目</a>
+  			<input class="info" type="text" name="item_text" />
+  		</div>
+  	    <div class="item">
+  	    	<a>支出金额</a>
+  			<input class="info" type="text" name="amount" />
+  		</div>
+  	    <div class="item">
+  	    	<a>支出分类</a>
+  			<select class="info" name="category_id">
+  				<option>-请选择-</option>
+  				<option>1</option>
+  				<option>2</option>
+  				<option>3</option>
+  				<option>4</option>
+  			</select>
+  		</div>
+  	    <div class="item">
+  	    	<a>支出日期</a>
+  			<input class="info" type="Date" name="date_paid" />
+  		</div>
+  	<button id="add-btn">新增</button>
+  	</div><!--content_item-->
+  	</form>
+    </div><!-- content2 -->
+	
+	</div><!--add-->
+	
+	
+	<div class="tab-pane fade" id="liebiao">
+	
+			<div id="tables">
+	<div id="table1">
+	<table border="1">
+	<tr>
+	    <td style="width:100px">序号</td>
+		<td style="width:100px">ID</td>
+		<td style="width:100px">支出项目</td>
+		<td style="width:100px">支出金额</td>
+		<td style="width:100px">记账日期</td>
+		<td style="width:100px">记账类别</td>
+		<td style="width:120px">操作</td>
+	</tr>
+	</table>
+	</div><!-- table1 -->
+<div id="app">
+	<div id="table2" v-for="(NoteItem,index) in notes" v-bind:key="NoteItem.id">
+	<table border="1">
+	<tr>
+	    <td style="width:100px">{{index+1}}</td>
+		<td style="width:100px">{{NoteItem.id}}</td>
+		<td style="width:100px">{{NoteItem.item_text}}</td>
+		<td style="width:100px">{{NoteItem.amount}}</td>
+		<td style="width:100px">{{NoteItem.date_paid}}</td>
+		<td style="width:100px">{{NoteItem.category_text}}</td>
+		<td style="width:120px">
+		<button type="button" v-on:click="do_update(NoteItem.id)" class="btn btn-info">修改</button>
+		<button type="button" v-on:click="do_delete(NoteItem.id)" class="btn btn-warning">删除</button>
+		</td>
+	</tr>	
+	</table>
+	</div>	<!--table2-->
+	<div><button v-on:click="do_loading">加载</button></div><!-- button -->
+</div>	<!-- app-->
+</div><!-- tables -->
+<script>
+	$(document).ready(function(){ 
+	var vm = new Vue({
+		el:"#app",
+		data:{
+			notes:[],
+		},
+		methods:{
+			do_loading:function(){
+				var self = this;
+				$.ajax({
+					url:"NotebookServlet3",
+					dataType:"json",
+					success:function(data){
+						self.notes = data;
+					},
+					error:function(){
+						alert("error!");
+					},
+				});
+			},//do_loading结束
+			do_delete:function(id){
+			    var self = this;
+				$.ajax({
+					url:"NotebookServlet4",
+					data:{"id":id},
+					dataType:"json",
+					success:function(data){
+						alert("id="+id+"删除成功");
+						self.notes = data;  //重新渲染数据
+					},
+					error:function(){
+						alert("删除失败!");
+					},
+				}); //do_delete的ajax结束
+			},//do_delete结束
+			do_update:function(id){
+			    var self = this;
+			   /* var item_text=$("#item_text").val();
+			    var amount=$("#amount").val();
+			    var paid=$("#data_paid").val();
+			    var category=$("#category").val();*/
+				$.ajax({
+					url:"NotebookServlet5",
+					date:$("#form3").serialize(),
+					dataType:"json",
+					success:function(data){
+						alert("修改成功");
+						self.notes = data;  //重新渲染数据
+					},
+					error:function(){
+						alert("修改失败!");
+					},
+				}); //do_update的ajax结束
+			},//do_update结束
+		},//methods结束
+	});//vue结束
+	})//jquery结束
+</script>	
+	</div><!--列表-->
+</div><!-- myTabContent -->
+<a href="NotebookServlet3">notebookservlet3</a>
+<a href="NotebookServlet1">notebookservlet1</a>
+</div><!-- wrapper -->
+</body>
+</html>
